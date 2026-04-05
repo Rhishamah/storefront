@@ -2,10 +2,13 @@ from django.db import models
 
 # Create your models here.
 
-
+class Promotion(models.Model):
+        description = models.CharField(max_length=255)
+        discount = models.FloatField()
 
 class Collection(models.Model):
         title = models.CharField(max_length=255)
+        featured_product = models.ForeignKey("Product", on_delete=models.SET_NULL, null=True, related_name='+')
 
 class Item(models.Model):
         title = models.CharField(max_length=255)
@@ -16,7 +19,8 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2)
     inventory = models.IntegerField()
     last_update = models.DateTimeField(auto_now=True)
-    collection = models.ForeignKey(Collection, on_delete=models.CASCADE)
+    collection = models.ForeignKey(Collection, on_delete=models.PROTECT)
+    promotions = models.ManyToManyField(Promotion)
 
 
 class Customer(models.Model):
@@ -25,9 +29,9 @@ class Customer(models.Model):
     MEMBERSHIP_GOLD = "G"
 
     MEMBERSHIP_CHOICES = [
-        ("MEMBERSHIP_BRONZE", "Bronze"),
-        ("MEMBERSHIP_SILVER", "Silver"),
-        ("MEMBERSHIP_GOLD", "Gold"),
+        (MEMBERSHIP_BRONZE, "Bronze"),
+        (MEMBERSHIP_SILVER, "Silver"),
+        (MEMBERSHIP_GOLD, "Gold"),
     ]
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
@@ -42,9 +46,9 @@ class Order(models.Model):
         PAYMENT_STATUS_COMPLETE = "C"
         PAYMENT_STATUS_FAILED = "F"
         PAYMENT_STATUS_CHOICES =[
-            ("PAYMENT_STATUS_PENDING", "Pending"),
-            ("PAYMENT_STATUS_COMPLETE", "Complete"),
-            ("PAYMENT_STATUS_FAILED", "Failed"),
+            (PAYMENT_STATUS_PENDING, "Pending"),
+            (PAYMENT_STATUS_COMPLETE, "Complete"),
+            (PAYMENT_STATUS_FAILED, "Failed"),
         ]
         placed_at = models.DateTimeField(auto_now_add=True)
         payment_status= models.CharField(max_length=255, choices=PAYMENT_STATUS_CHOICES, default=PAYMENT_STATUS_PENDING)
