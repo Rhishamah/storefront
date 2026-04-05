@@ -35,4 +35,4 @@ class customer(models.model):
             ("PAYMENT_STATUS_FAILED", "Failed"),
         ]
         placed_at = models.DateTimeField(auto_now_add=True)
-        payment_status= models.CharField(max_length=255, choices=PAYMENT_STATUS_CHOICES, )
+        payment_status= models.CharField(max_length=255, choices=PAYMENT_STATUS_CHOICES, default=PAYMENT_STATUS_PENDING)
