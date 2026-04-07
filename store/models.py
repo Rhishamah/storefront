@@ -66,6 +66,7 @@ class Address(models.Model) :
             city = models.CharField(max_length=255)
             customer = models.ForeignKey(Customer, on_delete=models.PROTECT)
             item = models.ForeignKey(Item,on_delete=models.CASCADE)
+            zip = models.CharField(max_length=10, blank=True, null=True)
 
 class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
