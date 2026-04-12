@@ -5,8 +5,7 @@ from store.models import Product
 # Create your views here.
 
 def say_hello(request):
-    query_set = Product.objects.all()
+    product = Product.objects.get(pk=1)
     
-    for product in query_set:
-        print(product)
+
     return render(request, "hello.html",{"name":"vincent"})
