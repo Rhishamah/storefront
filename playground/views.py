@@ -7,9 +7,6 @@ from store.models import Product
 # Create your views here.
 
 def say_hello(request):
-    try:
-        product = Product.objects.get(pk=0)
-    except ObjectDoesNotExist:
-        pass
+    exists = Product.objects.filter(pk=0).exists()
 
     return render(request, "hello.html",{"name":"vincent"})
