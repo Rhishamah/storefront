@@ -8,6 +8,6 @@ from store.models import Product
 
 def say_hello(request):
     # sorting data 
-    product = Product.objects.filter(collection__id=1).order_by("unit_price")[0]
-    product = Product.objects.earliest("unit_price")
-    return render(request, "hello.html",{"name":"vincent", "product":product})
+    queryset = Product.objects.all()[:5] 
+
+    return render(request, "hello.html",{"name":"vincent", "products": list(queryset)})
