@@ -7,7 +7,7 @@ from store.models import Product
 # Create your views here.
 
 def say_hello(request):
-    # e.g  products: inventory = price to compare two fields 
-    queryset = Product.objects.filter(inventory=F("collection__id"))
+    # sorting data 
+    queryset = Product.objects.order_by("title")
 
     return render(request, "hello.html",{"name":"vincent", "products":list(queryset)})
