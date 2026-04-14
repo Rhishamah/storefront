@@ -10,7 +10,8 @@ from store.models import OrderItem
 def say_hello(request):
     # select_related is used when the other end of the relationship has only one instance (1)
     # prefetch_related is used when the  other end of the relationship has many objects (n)
-    queryset =  Product.objects.prefetch_related("promotions").select_related("collection").all()
+    queryset =  Order.objects.select_related(
+        "customer").prefetch_related("orderitem_set__product").order_by("-placed_at")[:5]
 
 
-    return render(request, "hello.html",{"name":"vincent", "products": list(queryset)})
+    return render(request, "hello.html",{"name":"vincent", "orders": list(queryset)})
