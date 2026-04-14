@@ -6,8 +6,9 @@ from store.models import Product
 # Create your views here.
 
 def say_hello(request):
-    # sorting data 
-    queryset =  Product.objects.defer("description")
+    # select_related is used when the other end of the relationship has only one instance (1)
+    # prefetch_related is used when the  other end of the relationship has many objects (n)
+    queryset =  Product.objects.select_related("collection").all()
 
 
     return render(request, "hello.html",{"name":"vincent", "products": list(queryset)})
