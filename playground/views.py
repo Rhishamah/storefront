@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.db.models import Value, F
+from django.db.models import Value, F, Func
 from store.models import Product, Customer
 
 
 # Create your views here.
 
 def say_hello(request):
-    queryset = Customer.objects.annotate(new_id=F("id"))
+    queryset = Customer.objects.annotate(
+        full_name=Func(F("first_name"), Value(" "), F("last_name"), function="CONCAT")
+    )
 
     return render(request, "hello.html",{"name":"vincent", "result":list(queryset)})
