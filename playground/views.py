@@ -8,11 +8,10 @@ from store.models import Product, Customer
 # Create your views here.
 
 def say_hello(request):
-    ExpressionWrapper()
+    discounted_price = ExpressionWrapper(F("unit_price") * 0.8, output_field=DecimalField())
     queryset = Customer.objects.annotate(
-        discounted_price=F("unit_price") * 0.8
+        discounted_price=discounted_price
     )
-
 
     
 
