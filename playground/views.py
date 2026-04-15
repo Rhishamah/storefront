@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.db.models import Value, F, Func, Count
+from django.db.models import Value, F, Func, ExpressionWrapper
 from django.db.models.functions import Concat
 from store.models import Product, Customer
 
@@ -8,8 +8,9 @@ from store.models import Product, Customer
 # Create your views here.
 
 def say_hello(request):
+    ExpressionWrapper()
     queryset = Customer.objects.annotate(
-        orders_count=Count("order")
+        discounted_price=F("unit_price") * 0.8
     )
 
 
