@@ -4,17 +4,21 @@ from django.http import HttpResponse
 from store.models import Order, OrderItem, Product, Customer, Collection
 
 # Create your views here.
-@transaction.atomic()
-def say_hello(request):
-    order = Order()
-    order.customer_id = 1
-    order.save()
 
-    item = OrderItem()
-    item.order = order
-    item.product_id = 1
-    item.quantity = 1
-    item.unit_price = 10
-    item.save()
+def say_hello(request):
+
+#...
+
+    with transaction.atomic():
+        order = Order()
+        order.customer_id = 1
+        order.save()
+
+        item = OrderItem()
+        item.order = order
+        item.product_id = 1
+        item.quantity = 1
+        item.unit_price = 10
+        item.save()
 
     return render(request, "hello.html",{"name":"vincent"})
