@@ -5,9 +5,9 @@ from store.models import Order, OrderItem, Product, Customer, Collection
 # Create your views here.
 
 def say_hello(request):
-    collection = Collection()
+    collection = Collection(pk=10)
     collection.title = "Video Games"
-    collection.featured_product = Product(pk=1)
+    collection.featured_product = None
     collection.save()
 
     return render(request, "hello.html",{"name":"vincent"})
