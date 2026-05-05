@@ -12,6 +12,10 @@ class Collection(models.Model):
 
         def __str__(self) -> str:
                 return self.title
+        
+
+        class Meta:
+                ordering= ["title"]
 
 class Item(models.Model):
         title = models.CharField(max_length=255)
