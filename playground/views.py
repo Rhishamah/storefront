@@ -6,19 +6,7 @@ from store.models import Order, OrderItem, Product, Customer, Collection
 # Create your views here.
 
 def say_hello(request):
+    queryset = Product.objects.raw("SELECT id, title FROM store_product")
 
-#...
 
-    with transaction.atomic():
-        order = Order()
-        order.customer_id = 1
-        order.save()
-
-        item = OrderItem()
-        item.order = order
-        item.product_id = 1
-        item.quantity = 1
-        item.unit_price = 10
-        item.save()
-
-    return render(request, "hello.html",{"name":"vincent"})
+    return render(request, "hello.html",{"name":"vincent", "result": list(queryset)})
